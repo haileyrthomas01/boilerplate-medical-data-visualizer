@@ -15,20 +15,20 @@ df['gluc'] = (df['gluc'] > 1).astype(int)
 
 # 4
 def draw_cat_plot():
-    # Create DataFrame for cat plot using `pd.melt` using just the values from 'cholesterol', 'gluc', 'smoke', 'alco', 'active', and 'overweight'.
+    # 5
     df_cat = pd.melt(df, id_vars=['cardio'], value_vars=['active', 'alco', 'cholesterol', 'gluc', 'overweight', 'smoke'])
 
-    # Group and reformat the data to split it by 'cardio'. Show the counts of each feature.
+    # 6
     df_cat = df_cat.rename(columns={'variable': 'Variable', 'value': 'Value'})
 
-    # Draw the catplot with 'sns.catplot()'
+    # 7
     cat_plot = sns.catplot(x='Variable', hue='Value', col='cardio', data=df_cat, kind='count', order=['active', 'alco', 'cholesterol', 'gluc', 'overweight', 'smoke'])
     cat_plot.set_axis_labels("variable", "total")
 
-    # Adjust the following line if necessary to save the figure
+    # 8
     cat_plot.savefig('catplot.png')
     
-    # Return the figure that is embedded in the FacetGrid
+    # 9
     return cat_plot.fig
 
 
@@ -49,14 +49,11 @@ def draw_heat_map():
     # 13
     mask = np.triu(np.ones_like(corr, dtype=bool))
 
-
-
     # 14
     fig, ax = plt.subplots(figsize=(11, 9))
 
     # 15
     sns.heatmap(corr, mask=mask, annot=True, fmt='.1f', ax=ax, cmap='coolwarm', linewidths=1, linecolor='black')
-
 
     # 16
     fig.savefig('heatmap.png')
